@@ -1,12 +1,14 @@
 package com.fastcampus.exception.exception;
 
+import com.fastcampus.exception.controller.RestApiController;
+import com.fastcampus.exception.controller.RestBController;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @Slf4j
-@RestControllerAdvice(basePackages = "com.fastcampus.exception.controller")
+@RestControllerAdvice(basePackageClasses = {RestApiController.class, RestBController.class})
 public class RestApiExceptionHandler {
 
   @ExceptionHandler(value = {Exception.class})
