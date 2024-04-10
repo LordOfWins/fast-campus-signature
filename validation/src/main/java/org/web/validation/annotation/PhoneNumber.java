@@ -8,6 +8,7 @@ import java.lang.annotation.Target;
 import org.web.validation.validation.PhoneNumberValid;
 
 import jakarta.validation.Constraint;
+import jakarta.validation.Payload;
 
 @Constraint(validatedBy = PhoneNumberValid.class)
 @Target({ElementType.FIELD})
@@ -16,4 +17,9 @@ public @interface PhoneNumber {
   String message() default "Invalid phone number";
 
   String regexp() default "^\\d{2,3}-\\d{3,4}-\\d{4}$";
+
+  Class<?>[] groups() default {};
+
+  Class<? extends Payload>[] payload() default {};
+
 }
