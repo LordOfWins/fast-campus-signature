@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 
 import org.web.validation.annotation.PhoneNumber;
+import org.web.validation.annotation.YearMonth;
 
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
@@ -49,6 +50,9 @@ public class UserRegisterRequest {
 
   @FutureOrPresent
   private LocalDateTime registerAt;
+
+  @YearMonth(pattern = "yyyyMM")
+  private String birth;
 
   @AssertTrue(message = "name 또는 password은 존재해야 합니다.")
   public boolean isNameCheck() {
