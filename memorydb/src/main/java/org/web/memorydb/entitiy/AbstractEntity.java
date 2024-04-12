@@ -1,8 +1,10 @@
 package org.web.memorydb.entitiy;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Setter
+@Getter
 public abstract class AbstractEntity implements PrimaryKey {
 
   private Long id;
