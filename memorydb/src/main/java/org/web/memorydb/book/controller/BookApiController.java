@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.web.memorydb.book.db.entity.BookEntitiy;
+import org.web.memorydb.book.db.entity.BookEntity;
 import org.web.memorydb.book.service.BookService;
 
 import lombok.RequiredArgsConstructor;
@@ -23,25 +23,24 @@ public class BookApiController {
   private final BookService bookService;
 
   @PostMapping("/create")
-  public BookEntitiy create(@RequestBody BookEntitiy bookEntitiy) {
-    return bookService.save(bookEntitiy);
+  public BookEntity create(@RequestBody BookEntity bookEntity) {
+    return bookService.save(bookEntity);
 
   }
 
   @GetMapping("/all")
-  public List<BookEntitiy> findAll() {
+  public List<BookEntity> findAll() {
     return bookService.findAll();
   }
 
   @GetMapping("/id/{id}")
-  public BookEntitiy findById(@PathVariable("id") Long id) {
-    var response = bookService.findById(id);
-    return response.orElseThrow(() -> new IllegalArgumentException("해당하는 책이 없습니다."));
+  public BookEntity findById(@PathVariable("id") Long id) {
+    return bookService.findById(id);
   }
 
   @PutMapping("/update")
-  public BookEntitiy update(@RequestBody BookEntitiy bookEntitiy) {
-    return bookService.update(bookEntitiy);
+  public BookEntity update(@RequestBody BookEntity bookEntity) {
+    return bookService.update(bookEntity);
   }
 
   @DeleteMapping("/id/{id}")
