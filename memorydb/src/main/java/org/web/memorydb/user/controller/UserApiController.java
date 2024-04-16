@@ -6,11 +6,12 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.web.memorydb.user.model.UserEntitiy;
+import org.web.memorydb.user.model.UserEntity;
 import org.web.memorydb.user.service.UserService;
 
 import lombok.RequiredArgsConstructor;
@@ -23,27 +24,25 @@ public class UserApiController {
   private final UserService userService;
 
   @PostMapping
-  public UserEntitiy create(@RequestBody UserEntitiy userEntitiy) {
-    return userService.save(userEntitiy);
+  public UserEntity create(@RequestBody UserEntity userEntity) {
+    return userService.save(userEntity);
   }
 
   @GetMapping("/all")
-  public List<UserEntitiy> findAll() {
+  public List<UserEntity> findAll() {
     return userService.findAll();
   }
 
-  //findById
-
   @GetMapping("/{id}")
-  public UserEntitiy findById(@PathVariable("id") Long id) {
+  public UserEntity findById(@PathVariable("id") Long id) {
     var response = userService.findById(id);
     return response.orElseThrow(() -> new IllegalArgumentException("해당하는 유저가 없습니다."));
   }
 
   //update
-  @PostMapping("/update")
-  public UserEntitiy update(@RequestBody UserEntitiy userEntitiy) {
-    return userService.update(userEntitiy);
+  @PutMapping("/update")
+  public UserEntity update(@RequestBody UserEntity userEntity) {
+    return userService.update(userEntity);
   }
 
   //delete
@@ -54,8 +53,14 @@ public class UserApiController {
 
   //70점 이상인 사람을 찾아주는 메소드
   @GetMapping("/score")
-  public List<UserEntitiy> findByScoreGreaterThanEqual(@RequestParam int score) {
-    return userService.findByScoreGreaterThanEqual(score);
+  public List<UserEntity> findAllScoreGreaterThanEqual(@RequestParam("score") int score) {
+    return userService.findAllScoreGreaterThanEqual(score);
   }
 
+  //score가 start와 end 사이에 있는 사람을 찾아주는 메소드
+  @GetMapping("/score/between")
+  public List<UserEntity> findByScoreLessThanEqualOrScoreGreaterThanEqual(@RequestParam("start") int start,
+      @RequestParam("end") int end) {
+    return userService.findByScoreLessThanEqualOrScoreGreaterThanEqual(start, end);
+  }
 }
